@@ -89,3 +89,17 @@ export interface DiscoverMovies {
   page: number;
   results: BaseMovieProps[];
 }
+
+export interface Actor {
+    id: number;
+    name: string;
+    profile_path: string | null;
+    known_for_department: string;
+    popularity: number;
+    gender: number;
+}
+
+export interface PopularActors {
+  results: Actor[];
+  action?: (a: Actor) => React.ReactNode;
+}
