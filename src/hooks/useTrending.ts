@@ -1,15 +1,21 @@
-import { useEffect, useState } from "react";
+import { useQuery } from "react-query";
+import { useState } from "react";
 import { getTrending } from '../api/tmdb-api'
 import { PopularActors } from '../types/interfaces';
 
-const useTrending = (range: string) => {
-    const [actors, setActors] = useState<PopularActors>();
-    useEffect(() => {
-        getTrending(range).then(actors => {
-            setActors(actors);
-        });
-    }, [range]);
-    return [actors, setActors] as const;
+interface UseTrendingReturn {
+  trending: string;
+  setTrending: React.Dispatch<React.SetStateAction<string>>;
+}
+
+const useTrending = (range: string): UseTrendingReturn => {
+   const [trending, setTrending] = useState<string>("None");
+   useQuery<PopularActors[], Error>(["trending", range], () => getTrending(range), {
+      onSuccess: (data) => {
+         setTrending(data);
+      },
+   });
+   return { trending, setTrending };
 };
 
 export default useTrending
