@@ -1,12 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import PageTemplate from '../components/templateActorListPage';
-import { getPopularActors } from "../api/tmdb-api";
+import { getPopularActors, getTrending } from "../api/tmdb-api";
 import { useQuery } from "react-query";
 import { Actor } from "../types/interfaces";
 import Spinner from "../components/spinner";
 
 const PopularActorsPage: React.FC = () => {
-  const { data, error, isLoading, isError } = useQuery<Actor[], Error>("popular", getPopularActors);
+  const [trending, setTrending] = useState("None");
+
+  const { data, error, isLoading, isError } = useQuery<Actor[], Error>(
+    ["actors", trending],
+    () => trending !== "None" ? getTrending(trending) : getPopularActors()
+  );
+
   const actors = data ? data : [];
 
   if (isLoading) {
@@ -17,8 +23,7 @@ const PopularActorsPage: React.FC = () => {
     return <h1>{error.message}</h1>;
   }
 
-  
-  return (  
+  return (
     <PageTemplate
       title="Popular Actors"
       results={actors}
