@@ -6,6 +6,8 @@ import { useQuery } from "react-query";
 import { UpcomingMovies } from "../types/interfaces";
 import Spinner from "../components/spinner";
 import AddToPlaylistIcon from "../components/cardIcons/addToPlaylist";
+import ToggleButtonGroup from "@mui/material/ToggleButtonGroup/ToggleButtonGroup";
+import ToggleButton from "@mui/material/ToggleButton/ToggleButton";
 
 const UpcomingMoviesPage: React.FC = () => {
   const { data, error, isLoading, isError } = useQuery<UpcomingMovies, Error>("upcoming", getUpcomingMovies);
@@ -27,7 +29,8 @@ const UpcomingMoviesPage: React.FC = () => {
   }
 
   
-  return (  
+  return ( 
+  
     <PageTemplate
       title='Upcoming Movies'
       movies={movies}

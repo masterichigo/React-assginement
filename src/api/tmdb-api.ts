@@ -79,4 +79,12 @@ export const getMovie = (id: string) => {
       .then(json => json.results);
   }
 
+  export const getTrending = (range: string) => {
+    return fetch(
+      `https://api.themoviedb.org/3/trending/person/${range}?api_key=${import.meta.env.VITE_TMDB_KEY}`
+    )
+      .then(res => res.json())
+      .then(json => json.results);
+  };
+
   
