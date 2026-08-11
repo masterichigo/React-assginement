@@ -103,3 +103,7 @@ export interface PopularActors {
   results: Actor[];
   action?: (a: Actor) => React.ReactNode;
 }
+
+export type ActorResults = Actor[] & {
+  hasMore: boolean;
+};
