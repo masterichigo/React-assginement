@@ -1,9 +1,11 @@
 import React, { useState } from "react";
+import CustomToggleButton from "../components/toggleButton";
 import PageTemplate from '../components/templateActorListPage';
 import { getPopularActors, getTrending } from "../api/tmdb-api";
 import { useQuery } from "react-query";
 import { Actor } from "../types/interfaces";
 import Spinner from "../components/spinner";
+
 
 const PopularActorsPage: React.FC = () => {
   const [trending, setTrending] = useState("None");
@@ -24,10 +26,15 @@ const PopularActorsPage: React.FC = () => {
   }
 
   return (
-    <PageTemplate
-      title="Popular Actors"
-      results={actors}
-    />
+    <>
+      <CustomToggleButton value={trending} onChange={(event, newValue) => setTrending(newValue)} />
+      <br />
+      <br />
+      <PageTemplate
+        title="Popular Actors"
+        results={actors}
+      />
+    </>
   );
 };
 export default PopularActorsPage;
