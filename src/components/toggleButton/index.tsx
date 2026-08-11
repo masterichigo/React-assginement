@@ -19,7 +19,7 @@ const CustomToggleButton: React.FC<ToggleButtonProps> = ({ value, onChange }) =>
       >
         <ToggleButton value="day">Today</ToggleButton>
         <ToggleButton value="week">This Week</ToggleButton>
-        <ToggleButton value="None">None</ToggleButton>
+        <ToggleButton value="None">All Time</ToggleButton>
       </ToggleButtonGroup>
     </Box>
   );

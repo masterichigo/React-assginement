@@ -71,17 +71,17 @@ export const getMovie = (id: string) => {
       .then(json => json.results);
   };
 
-  export const getPopularActors = () => {
+  export const getPopularActors = (page: number) => {
     return fetch(
-      `https://api.themoviedb.org/3/person/popular?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US&page=1`
+      `https://api.themoviedb.org/3/person/popular?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US&page=${page}`
     )
       .then(res => res.json())
       .then(json => json.results);
   }
 
-  export const getTrending = (range: string) => {
+  export const getTrending = (range: string, page: number) => {
     return fetch(
-      `https://api.themoviedb.org/3/trending/person/${range}?api_key=${import.meta.env.VITE_TMDB_KEY}`
+      `https://api.themoviedb.org/3/trending/person/${range}?api_key=${import.meta.env.VITE_TMDB_KEY}&page=${page}`
     )
       .then(res => res.json())
       .then(json => json.results);

@@ -9,10 +9,14 @@ import Spinner from "../components/spinner";
 
 const PopularActorsPage: React.FC = () => {
   const [trending, setTrending] = useState("None");
+  const [page, setPage] = React.useState(0)
 
-  const { data, error, isLoading, isError } = useQuery<Actor[], Error>(
+  const { data, error, isLoading, isError, isFetching, isPreviousData } = useQuery<Actor[], Error>(
     ["actors", trending],
-    () => trending !== "None" ? getTrending(trending) : getPopularActors()
+    () => trending !== "None" ? getTrending(trending) : getPopularActors(),
+    {
+      keepPreviousData: true,
+    }
   );
 
   const actors = data ? data : [];
@@ -33,6 +37,8 @@ const PopularActorsPage: React.FC = () => {
       <PageTemplate
         title="Popular Actors"
         results={actors}
+        page={page}
+        setPage={setPage}
       />
     </>
   );
