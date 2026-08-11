@@ -6,9 +6,10 @@ import { useQuery } from "react-query";
 import { ActorResults } from "../types/interfaces";
 import Spinner from "../components/spinner";
 
+type trendingOptions = "day" | "week" | "None";
 
 const PopularActorsPage: React.FC = () => {
-  const [trending, setTrending] = useState("None");
+  const [trending, setTrending] = useState<trendingOptions>("None");
   const [page, setPage] = React.useState(1);
 
   const { data, error, isLoading, isError, isFetching, isPreviousData } = useQuery<ActorResults, Error>(
