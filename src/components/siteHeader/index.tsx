@@ -11,6 +11,8 @@ import Menu from "@mui/material/Menu";
 import { useNavigate } from "react-router-dom";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import { AuthContext } from "../../contexts/authContext";
+import { useContext } from "react";
 
 const styles = {
     title: {
@@ -26,16 +28,22 @@ const SiteHeader: React.FC = () => {
   const open = Boolean(anchorEl);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("lg"));
+  const { token, signout } = useContext(AuthContext) || {};
 
   const menuOptions = [
     { label: "Home", path: "/" },
     { label: "Favorites", path: "/movies/favourites" },
     { label: "Upcoming", path: "/movies/upcoming" },
     { label: "Popular Actors", path: "/actors/popular" },
+    ...(token ? [{ label: "Sign Out", path: "/logout" }] : [{ label: "Login", path: "/login" }]),
   ];
 
   const handleMenuSelect = (pageURL: string) => {
-    navigate(pageURL);
+    if (pageURL === "/logout") {
+      signout?.();
+    } else {
+      navigate(pageURL);
+    }
   };
 
   const handleMenu = (event: MouseEvent<HTMLButtonElement>) => {
