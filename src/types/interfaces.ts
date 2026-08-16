@@ -113,3 +113,15 @@ export interface AuthContextInterface {
     authenticate: ((username: string, password: string) => void);
     signout: () => void;
   }
+
+export interface ActorDetailsProps {
+  id: number;
+  name: string;
+  biography: string;
+  birthday: string | null;
+  deathday: string | null;
+  place_of_birth: string | null;
+  profile_path: string | null;
+  popularity: number;
+  known_for_department: string;
+}

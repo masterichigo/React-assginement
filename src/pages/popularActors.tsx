@@ -1,17 +1,22 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import CustomToggleButton from "../components/toggleButton";
 import PageTemplate from '../components/templateActorListPage';
 import { getPopularActors, getTrending } from "../api/tmdb-api";
 import { useQuery } from "react-query";
 import { ActorResults } from "../types/interfaces";
 import Spinner from "../components/spinner";
+import { AuthContext } from "../contexts/authContext";
+import { Navigate, useNavigate, useLocation } from "react-router-dom";
 import { Button } from "@mui/material";
 import Typography from "@mui/material/Typography";
-import { CenterFocusStrong } from "@mui/icons-material";
+
 
 type trendingOptions = "day" | "week" | "None";
 
 const PopularActorsPage: React.FC = () => {
+  const { token } = useContext(AuthContext) || {};
+  const navigate = useNavigate();
+  const location = useLocation();
   const [trending, setTrending] = useState<trendingOptions>("None");
   const [page, setPage] = React.useState(1);
   
@@ -37,13 +42,18 @@ const PopularActorsPage: React.FC = () => {
     <>
     
     
-    <CustomToggleButton
-    value={trending}
-    onChange={(_event, newValue) => { // in the labs, we defined the function with event paratmeter inside the equivalent of the customToggleButton component to preventdefault behaviour but because the toggle button already has a built in preventdefault behaviour , we directly pass the prop function to the onChange prop of the toggle button group component.
-      setTrending(newValue as trendingOptions); // as trendingOptions to escape linting error
-      setPage(1);
-    }}
-    />
+    {token ? (
+      <CustomToggleButton
+      value={trending}
+      onChange={(_event, newValue) => { // in the labs, we defined the function with event paratmeter inside the equivalent of the customToggleButton component to preventdefault behaviour but because the toggle button already has a built in preventdefault behaviour , we directly pass the prop function to the onChange prop of the toggle button group component.
+        setTrending(newValue as trendingOptions); // as trendingOptions to escape linting error
+        setPage(1);
+      }}
+      />
+    ): <p>
+          Please login to use a special filter{" "}
+          <button onClick={() => navigate("/login", { state: { intent: location } })}>Login</button>
+        </p>}
     <br />
     <Typography variant="h5" textAlign="center">Current Page: {page}</Typography>
     <Button

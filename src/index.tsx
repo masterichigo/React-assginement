@@ -15,6 +15,7 @@ import AddMovieReviewPage from './pages/addMovieReviewPage';
 import PopularActorsPage from "./pages/popularActors";
 import ProtectedRoute from "./components/protectedRoute";
 import AuthContextProvider from "./contexts/authContext";
+import ActorDetailsPage from "./pages/actorDetailsPage";
 
  // NEW
 
@@ -50,6 +51,7 @@ const App = () => {
           <Route path="/reviews/form" element={<AddMovieReviewPage/>} />
           <Route path="/playlists" element={<div>Playlists Page</div>} />
           <Route path="/actors/popular" element={<PopularActorsPage />} />
+          <Route path="/actors/:id" element={<ActorDetailsPage />} />
         </Routes>
        </MoviesContextProvider>
       </AuthContextProvider>
